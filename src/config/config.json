@@ -1,0 +1,17 @@
+{
+    "db": {
+        "type": "sqlite",
+        "database": "a.db"
+    },
+    "website": {
+        "title": "Axcloud Beta"
+    },
+    "ui": {
+        "theme": "light",
+        "language": "zh-CN"
+    },
+    "server": {
+        "port": 17482,
+        "allowedOrigins": ["port-5173.dev.yemaster.cn"]
+    }
+}
