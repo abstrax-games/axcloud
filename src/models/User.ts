@@ -11,6 +11,15 @@ export class User {
     @Column()
     password: string
 
+    @Column({ nullable: true })
+    email: string
+
+    @Column({ nullable: true })
+    phone: string
+
+    @Column({ default: 0 })
+    balance: number
+
     @Column({ default: 1023 })
     privilege: number
 

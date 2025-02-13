@@ -1,10 +1,15 @@
 {
     "db": {
-        "type": "sqlite",
-        "database": "a.db"
+        "type": "mysql",
+        "host": "mysql_jixn-mysql_JiXN-1",
+        "port": 3306,
+        "username": "axcloud",
+        "password": "tCmt3ib7i2wAyZbr",
+        "database": "axcloud"
     },
     "website": {
-        "title": "Axcloud Beta"
+        "title": "Axcloud Beta",
+        "description": "小白也能轻松使用的云平台"
     },
     "ui": {
         "theme": "light",

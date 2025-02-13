@@ -11,7 +11,7 @@ import 'dotenv/config';
 import "reflect-metadata"
 import typeorm from './plugins/typeorm';
 import { DataSource } from 'typeorm';
-import { User, Post, Log, Comment, Message } from './models';
+import { User, Log, Product, ProductGroup } from './models';
 import { db, server } from "./config/config.json";
 
 // middlewares
@@ -45,7 +45,7 @@ app.register(cors, {
             return;
         }
         const hostname = new URL(origin).hostname;
-        console.log(hostname, server.allowedOrigins)
+        // console.log(hostname, server.allowedOrigins)
         if (server.allowedOrigins.includes(hostname)) {
             //  Request from localhost will pass
             cb(null, true);
@@ -59,7 +59,7 @@ app.register(cors, {
 // Register the typeorm plugin with the database configuration
 app.register(typeorm, {
     ...db,
-    entities: [User, Post, Log, Comment, Message],
+    entities: [User, Log, Product, ProductGroup],
     synchronize: true
 });
 

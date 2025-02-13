@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useRouter } from 'vue-router';
 import { useSiteConfigStore } from '../stores/siteConfig';
+import { useNavbarConfigStore } from '../stores/navbarConfig';
 import { throttle } from "../libs/func";
 
 const siteConfig = useSiteConfigStore();
+const navbarConfig = useNavbarConfigStore();
+const router = useRouter();
 
 const axPageHeader = ref();
 const axNavbarScroller = ref();
 
 const handleScroll = function () {
     const scrollPosition = window.scrollY || window.pageYOffset;
-    const speed = 0.5;
 
     //banner.style.backgroundPositionY = -(scrollPosition * speed) + 'px';
-    if (scrollPosition > 0) {
+    if (scrollPosition > 0 || navbarConfig.navbarMode === 0) {
         axPageHeader.value.classList.add("bg-white");
     }
     else {
@@ -43,6 +46,10 @@ const handleHover = function (e: MouseEvent) {
 
 const throttledHandleScroll = throttle(handleScroll, 50);
 
+const goToPage = function (link: string) {
+    router.push(link);
+}
+
 onMounted(() => {
     window.addEventListener('scroll', throttledHandleScroll);
     window.addEventListener('touchmove', throttledHandleScroll);
@@ -57,15 +64,14 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <header class="ax-header-menu" ref="axPageHeader">
+    <header class="ax-header-menu" ref="axPageHeader" :class="{ 'bg-white': navbarConfig.navbarMode === 0 }">
         <div class="ax-navbar">
             <div class="ax-navbar__left">
                 <div class="ax-navbar-item logo">
                     <div class="ax-navbar-item__link" href="https://blog.yemaster.cn/">{{ siteConfig.title }}</div>
                 </div>
                 <div class="ax-navbar-item">
-                    <a class="ax-navbar-item__link-active ax-navbar-item__link"
-                        href="https://blog.yemaster.cn/">最新活动</a>
+                    <div class="ax-navbar-item__link-active ax-navbar-item__link" @click="goToPage('/activity')">最新活动</div>
                 </div>
                 <div class="ax-navbar-item">
                     <div class="ax-navbar-item__link" href="https://blog.yemaster.cn/about">产品与服务</div>
@@ -98,15 +104,6 @@ onBeforeUnmount(() => {
         </div>
         <div class="ax-navbar-scroller" ref="axNavbarScroller"></div>
     </header>
-    <section class="ax-banner">
-        <video autoplay muted playsinline loop class="ax-banner-video">
-            <source src="https://assets.yemaster.cn/videos/back1.mp4" type="video/mp4">
-        </video>
-        <div class="ax-banner__text">
-            <div class="ax-banner-header">小白也能快速搭建Web应用</div>
-            <div class="ax-banner-subheader">一键部署、性能卓越、价格优惠</div>
-        </div>
-    </section>
 </template>
 
 <style lang="css" scoped>
@@ -239,57 +236,6 @@ onBeforeUnmount(() => {
 
 header:not(:hover) .ax-navbar-scroller {
     opacity: 0 !important;
-}
-
-.ax-banner {
-    position: relative;
-    width: 100%;
-    height: 80vh;
-    background-color: #dce9f8;
-    background-size: cover;
-    background-position: center 0;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    z-index: -2
-}
-
-.ax-banner::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, .6);
-    z-index: -1
-}
-
-.ax-banner__text {
-    position: absolute;
-    top: 50%;
-    left: 5rem;
-    width: 100%;
-    max-width: calc(768px - 2rem);
-}
-
-.ax-banner-video {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.ax-banner-header {
-    font-size: 2rem;
-}
-
-.ax-banner-subheader {
-    margin-top: .5rem;
-    font-size: 1.125rem;
 }
 
 @media (max-width:768px) {
