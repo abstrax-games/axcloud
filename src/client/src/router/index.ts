@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, routerKey } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const route = createRouter({
     history: createWebHistory(),
@@ -7,6 +7,13 @@ const route = createRouter({
             path: '/',
             component: () => import('../views/IndexPage.vue')
         },
+
+        // Products
+        {
+            path: '/product/list',
+            component: () => import('../views/products/ListPage.vue')
+        },
+
         {
             path: '/register',
             component: () => import('../views/RegisterPage.vue')

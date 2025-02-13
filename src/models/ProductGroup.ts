@@ -1,5 +1,5 @@
 // 产品组
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate, Index, ManyToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate, Index, ManyToOne, OneToMany } from "typeorm";
 import { User } from "./User";
 import { Product } from "./Product";
 
@@ -9,14 +9,15 @@ export class ProductGroup {
     id: number;
 
     @ManyToOne(() => User)
-    @JoinColumn()
     creator: User;
 
     @Column({ type: "text" })
     description: string;
 
+    @ManyToOne(() => ProductGroup, { nullable: true })
+    parentGroup: ProductGroup;
+
     @OneToMany(() => Product, (product) => product.group)
-    @JoinColumn()
     products: Product[];
 
     @Column()

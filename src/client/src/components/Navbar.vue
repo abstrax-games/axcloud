@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useSiteConfigStore } from '../stores/siteConfig';
 import { useNavbarConfigStore } from '../stores/navbarConfig';
 import { throttle } from "../libs/func";
 
 const siteConfig = useSiteConfigStore();
 const navbarConfig = useNavbarConfigStore();
+const route = useRoute();
 const router = useRouter();
 
 const axPageHeader = ref();
@@ -46,7 +47,8 @@ const handleHover = function (e: MouseEvent) {
 
 const throttledHandleScroll = throttle(handleScroll, 50);
 
-const goToPage = function (link: string) {
+function gotoPage(link: string) {
+    console.log(link);
     router.push(link);
 }
 
@@ -68,19 +70,10 @@ onBeforeUnmount(() => {
         <div class="ax-navbar">
             <div class="ax-navbar__left">
                 <div class="ax-navbar-item logo">
-                    <div class="ax-navbar-item__link" href="https://blog.yemaster.cn/">{{ siteConfig.title }}</div>
+                    <div class="ax-navbar-item__link" href="https://blog.yemaster.cn/" @click="gotoPage('/')">{{ siteConfig.title }}</div>
                 </div>
-                <div class="ax-navbar-item">
-                    <div class="ax-navbar-item__link-active ax-navbar-item__link" @click="goToPage('/activity')">最新活动</div>
-                </div>
-                <div class="ax-navbar-item">
-                    <div class="ax-navbar-item__link" href="https://blog.yemaster.cn/about">产品与服务</div>
-                </div>
-                <div class="ax-navbar-item">
-                    <div class="ax-navbar-item__link" href="https://blog.yemaster.cn/contest-history">帮助文档</div>
-                </div>
-                <div class="ax-navbar-item">
-                    <div class="ax-navbar-item__link" href="https://blog.yemaster.cn/resources">资料与工具</div>
+                <div class="ax-navbar-item" v-for="navbarItem in siteConfig.navbar" @click="gotoPage(navbarItem.link)">
+                    <div :class="{ 'ax-navbar-item__link-active': route.path === navbarItem.link }" class="ax-navbar-item__link">{{ navbarItem.name }}</div>
                 </div>
             </div>
             <div class="ax-navbar__right">
@@ -129,8 +122,8 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     max-width: 80rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
     margin-left: auto;
     margin-right: auto
 }
