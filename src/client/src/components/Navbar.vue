@@ -77,6 +77,12 @@ onBeforeUnmount(() => {
                 </div>
             </div>
             <div class="ax-navbar__right">
+                <div class="ax-navbar-item" @click="gotoPage('/login')">
+                    <div class="ax-navbar-item__link">登录</div>
+                </div>
+                <div class="ax-navbar-item" @click="gotoPage('/register')">
+                    <div class="ax-navbar-item__link">注册</div>
+                </div>
                 <div class="ax-navbar-item ax-menu-bar">
                     <div class="ax-navbar-item__link" href="javascript:;">
                         <i class="icon">&#xe601;</i>

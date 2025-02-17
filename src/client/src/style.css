@@ -75,9 +75,13 @@ a:hover {
 
 .ax-card {
     background-color: #fff;
-    padding: 48px;
+    padding: 1rem 2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .15);
     transition: all .2s;
+}
+
+.ax-card:not(:last-child) {
+    margin-bottom: 2rem;
 }
 
 .ax-card:hover {
@@ -195,7 +199,7 @@ a:hover {
 .ax-main {
     box-sizing: border-box;
     z-index: 10;
-    margin-top: 4.25rem;
+    margin-top: 6rem;
     width: 100%;
     padding-left: 2.25rem;
     padding-right: 2.25rem;

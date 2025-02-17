@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 
-export const backendURL = 'https://port-17482.dev.yemaster.cn/api';
+export const backendURL = 'http://localhost:17482/api';
 
 axios.defaults.baseURL = backendURL;
 axios.defaults.withCredentials = true;
