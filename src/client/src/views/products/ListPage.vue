@@ -141,5 +141,11 @@ onMounted(() => {
     font-size: 16px;
     white-space: nowrap;
     cursor: pointer;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.ax-order-overview-button:hover {
+    background-color: #0f6abf;
 }
 </style>
