@@ -1,7 +1,6 @@
 export * from './User';
 export * from './Application';
 export * from './ApplicationVersion';
-export * from './ApplicationCategory';
 export * from './Domain';
 export * from './CloudServer';
 export * from './Product';

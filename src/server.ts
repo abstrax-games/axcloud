@@ -11,7 +11,7 @@ import 'dotenv/config';
 import "reflect-metadata"
 import typeorm from './plugins/typeorm';
 import { DataSource } from 'typeorm';
-import { User, Application, ApplicationVersion, ApplicationCategory, Domain, Log, Product, Resource, CloudServer } from './models';
+import { User, Application, ApplicationVersion, Domain, Log, Product, Resource, CloudServer } from './models';
 import { db, server } from "./config/config.json";
 
 // middlewares
@@ -59,7 +59,7 @@ app.register(cors, {
 // Register the typeorm plugin with the database configuration
 app.register(typeorm, {
     ...db,
-    entities: [User, Application, ApplicationVersion, ApplicationCategory, Domain, Log, Product, Resource, CloudServer],
+    entities: [User, Application, ApplicationVersion, Domain, Log, Product, Resource, CloudServer],
     synchronize: true
 });
 

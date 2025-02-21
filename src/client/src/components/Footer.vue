@@ -17,7 +17,7 @@
 
 <style scoped>
 .ax-footer {
-    margin-top: 5rem;
+    margin-top: 3rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
     background-color: #fff;

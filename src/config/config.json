@@ -2,9 +2,9 @@
     "db": {
         "type": "mysql",
         "host": "localhost",
-        "port": 13306,
+        "port": 10293,
         "username": "axcloud",
-        "password": "yxyhZjcNxHEZ67FB",
+        "password": "pZHk25JNFPa72EfH",
         "database": "axcloud"
     },
     "website": {
