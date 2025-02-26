@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-import { ApplicationChoice } from '@/types/application';
+import { ApplicationChoice } from '@/models/Application';
 
 import { NInput, NInputGroup, NButton, NPopover, NDropdown, NIcon } from 'naive-ui';
 import { Search48Regular } from '@vicons/fluent';
 
-const chosenApplication = ref<ApplicationChoice | null>(null);
+// const chosenApplication = ref<ApplicationChoice | null>(null);
+const chosenApplication = defineModel<ApplicationChoice | null>();
 
 const applicationTags = ref([
     { label: "全部", key: "all" },
@@ -15,6 +16,10 @@ const applicationTags = ref([
     { label: "实用工具", key: "tool" },
 ]);
 const chosenApplicationTag = ref("all");
+
+function chooseApplication(application: ApplicationChoice) {
+    chosenApplication.value = application;
+}
 
 const applicationList = ref<ApplicationChoice[]>([{
     name: 'HUSTOJ',
@@ -108,7 +113,7 @@ const applicationListFiltered = computed(() => {
     <div class="ax-application-list">
         <div class="ax-application-item" v-for="application in applicationList" :key="application.name"
             :class="{ 'ax-application-item--selected': chosenApplication === application }"
-            @click="chosenApplication = application">
+            @click="chooseApplication(application)">
             <n-popover style="max-width: 200px" trigger="hover">
                 <template #trigger>
                     <div class="ax-application-item-info">

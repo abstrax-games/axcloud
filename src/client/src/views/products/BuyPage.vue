@@ -5,6 +5,8 @@ import { useNavbarConfigStore } from '@/stores/navbarConfig';
 
 import ChooseApplication from '@/views/products/ChooseApplication.vue';
 
+import { ApplicationChoice } from '@/types/application';
+
 import { NSteps, NStep, type StepsProps, NButton } from 'naive-ui';
 
 const siteConfig = useSiteConfigStore();
@@ -31,6 +33,21 @@ function addToCart() {
     // TODO
 }
 
+// For step 1
+const chosenApplication = ref<ApplicationChoice | null>(null);
+const getApplicationInfo = computed(() => {
+    return {
+        name: chosenApplication.value?.name ?? "--",
+        version: chosenApplication.value?.chosenVersion ?? "--",
+        price: 0
+    }
+});
+
+// All prices
+const allPrices = computed(() => {
+    return ((getApplicationInfo.value.price) / 100).toFixed(2);
+});
+
 navbarConfig.setNavbarMode(0);
 
 onMounted(() => {
@@ -49,7 +66,7 @@ onMounted(() => {
             </n-steps>
         </div>
         <div v-if="current === 1">
-            <ChooseApplication />
+            <ChooseApplication v-model="chosenApplication" />
         </div>
     </div>
     <div class="ax-height-4"></div>
@@ -57,11 +74,11 @@ onMounted(() => {
         <div class="ax-order-overview-column">
             <div class="ax-order-overview-item">
                 <div class="ax-order-overview-item__label">应用名称</div>
-                <div class="ax-order-overview-item__value">HUSTOJ</div>
+                <div class="ax-order-overview-item__value">{{ getApplicationInfo.name }}</div>
             </div>
             <div class="ax-order-overview-item">
                 <div class="ax-order-overview-item__label">应用版本</div>
-                <div class="ax-order-overview-item__value">20250220</div>
+                <div class="ax-order-overview-item__value">{{ getApplicationInfo.version }}</div>
             </div>
         </div>
         <div class="ax-order-overview-column">
@@ -74,7 +91,7 @@ onMounted(() => {
             <div class="ax-order-overview-price-column-main">
                 <div class="ax-order-overview-price-item">
                     <div class="ax-order-overview-item__label">应付费用</div>
-                    <div class="ax-order-overview-item__value ax-order-overview-price">￥0.00</div>
+                    <div class="ax-order-overview-item__value ax-order-overview-price">￥{{ allPrices }}</div>
                 </div>
                 <div>
                     <button class="ax-order-overview-button ax-order-overview-button-outline"
