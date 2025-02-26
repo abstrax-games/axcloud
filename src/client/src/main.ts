@@ -24,7 +24,7 @@ app.use(pinia);
 const siteConfig = useSiteConfigStore();
 
 async function main() {
-    await siteConfig.fetchSiteConfig();
+    //await siteConfig.fetchSiteConfig();
     app.mount('#app');
 }
 

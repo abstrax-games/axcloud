@@ -13,6 +13,7 @@ export default defineConfig({
   server: {
     watch: {
       usePolling: true
-    }
+    },
+    allowedHosts: ["110.40.35.65"]
   }
 })

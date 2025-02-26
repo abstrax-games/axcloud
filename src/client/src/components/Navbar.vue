@@ -127,7 +127,6 @@ onBeforeUnmount(() => {
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    max-width: 80rem;
     padding-left: 2.25rem;
     padding-right: 2.25rem;
     margin-left: auto;

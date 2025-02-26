@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 const route = createRouter({
     history: createWebHistory(),
     routes: [
@@ -10,8 +13,8 @@ const route = createRouter({
 
         // Products
         {
-            path: '/product/list',
-            component: () => import('../views/products/ListPage.vue')
+            path: '/product/buy',
+            component: () => import('../views/products/BuyPage.vue')
         },
 
         {
@@ -35,15 +38,16 @@ const route = createRouter({
 
 route.beforeEach((to, from, next) => {
     // 如果from.query.service存在，访问login和register也会带上service参数
-    if (!to.query.service && (to.path === '/' || to.path === '/register')) {
-        if (from.query.service) {
-            next({ path: to.path, query: { service: from.query.service, path: from.query.path } });
-        } else {
-            next();
-        }
+    NProgress.start()
+    if (!to.query.path && (to.path === '/login' || to.path === '/register')) {
+        next({ path: to.path, query: { path: from.query.path } });
     } else {
         next();
     }
 });
+
+route.afterEach(() => {
+    NProgress.done()
+})
 
 export default route;

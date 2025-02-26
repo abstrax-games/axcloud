@@ -2,7 +2,6 @@
 import Fastify from 'fastify';
 import fastifySecureSession from '@fastify/secure-session';
 import cors from '@fastify/cors';
-import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from "@fastify/static";
 
 import 'dotenv/config';
@@ -79,8 +78,6 @@ app.register(fastifySecureSession, {
         sameSite: 'none',
     }
 });
-
-app.register(fastifyMultipart);
 
 app.addHook('preHandler', queryArrayMiddleware);
 

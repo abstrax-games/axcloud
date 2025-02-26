@@ -13,6 +13,23 @@ const navbarConfig = useNavbarConfigStore();
 const currentRef = ref<number | undefined>(1);
 const current = computed(() => currentRef.value);
 const currentStatus = ref<StepsProps['status']>('process')
+const maxSteps = 4;
+
+function prevStep() {
+    if (currentRef.value && currentRef.value > 1) {
+        currentRef.value--;
+    }
+}
+
+function nextStep() {
+    if (currentRef.value && currentRef.value < maxSteps) {
+        currentRef.value++;
+    }
+}
+
+function addToCart() {
+    // TODO
+}
 
 navbarConfig.setNavbarMode(0);
 
@@ -27,7 +44,7 @@ onMounted(() => {
             <n-steps :current="current" :status="currentStatus">
                 <n-step title="选取应用镜像" description="从丰富的应用市场中选取心仪的应用" />
                 <n-step title="选择服务器套餐" description="丰富的服务器套餐，包含国内和国外不同地域以及不同配置的服务器" />
-                <n-step title="其他配置" description="进行网络、数据库、域名等的其他配置" />
+                <n-step title="附加服务" description="进行网络、数据库、域名等的其他配置，以及自动备份等附加服务" />
                 <n-step title="等待部署" description="等待系统部署完成应用，即可开始使用！" />
             </n-steps>
         </div>
@@ -54,12 +71,17 @@ onMounted(() => {
             </div>
         </div>
         <div class="ax-order-overview-price-column">
-            <div class="ax-order-overview-price-item">
-                <div class="ax-order-overview-item__label">应付费用</div>
-                <div class="ax-order-overview-item__value ax-order-overview-price">￥0.00</div>
-            </div>
-            <div>
-                <button class="ax-order-overview-button">下一步</button>
+            <div class="ax-order-overview-price-column-main">
+                <div class="ax-order-overview-price-item">
+                    <div class="ax-order-overview-item__label">应付费用</div>
+                    <div class="ax-order-overview-item__value ax-order-overview-price">￥0.00</div>
+                </div>
+                <div>
+                    <button class="ax-order-overview-button ax-order-overview-button-outline"
+                        @click="prevStep" v-if="currentRef && currentRef > 1">上一步</button>
+                    <button class="ax-order-overview-button" @click="nextStep" v-if="currentRef && currentRef < maxSteps">下一步</button>
+                    <button class="ax-order-overview-button" @click="addToCart" v-else>加入购物车</button>
+                </div>
             </div>
         </div>
     </div>
@@ -124,6 +146,12 @@ onMounted(() => {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+}
+
+.ax-order-overview-price-column-main {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
     gap: 1rem;
 }
 
@@ -136,16 +164,26 @@ onMounted(() => {
 .ax-order-overview-button {
     padding: .5rem 2rem;
     background-color: #1780db;
+    border: 1px solid #1780db;
     color: #fff;
-    border: none;
     font-size: 16px;
     white-space: nowrap;
     cursor: pointer;
 
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.ax-order-overview-button.ax-order-overview-button-outline {
+    background-color: #fff;
+    color: #1780db;
 }
 
 .ax-order-overview-button:hover {
     background-color: #0f6abf;
+    border-color: #0f6abf;
+}
+
+.ax-order-overview-button.ax-order-overview-button-outline:hover {
+    color: #fff;
 }
 </style>

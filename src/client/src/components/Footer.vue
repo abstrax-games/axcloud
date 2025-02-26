@@ -36,7 +36,6 @@
 }
 
 .ax-footer-bottom {
-    max-width: 80rem;
     display: flex;
 }
 

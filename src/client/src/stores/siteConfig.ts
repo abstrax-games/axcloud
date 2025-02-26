@@ -16,7 +16,7 @@ type AxcloudConfig = {
 
 const defaultNavbar: NavbarItem[] = [
     { name: "最新活动", link: "/activity" },
-    { name: "产品与服务", link: "/product/list" },
+    { name: "产品与服务", link: "/product/buy" },
     { name: "帮助文档", link: "/help" },
     { name: "联系我们", link: "/contact "}
 ]
