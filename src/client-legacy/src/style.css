@@ -1,17 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .ax-card,
 .ax-header-menu,
 .ax-navbar,
 pre {
     box-sizing: border-box
-}
-
-a, a:visited {
-    color: inherit !important;
-    text-decoration: none !important;
 }
 
 .article-main a::before,
@@ -62,6 +53,17 @@ code {
 
 pre code {
     padding: 0 !important
+}
+
+a,
+a:visited {
+    color: inherit;
+    text-decoration: none;
+    transition: .15s cubic-bezier(.4, 0, .2, 1)
+}
+
+a:hover {
+    color: #1780db
 }
 
 .ax-center {

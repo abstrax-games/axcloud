@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from "pinia";
-import { fetchData } from '../libs/fetchData';
+import { fetchData } from '../services/fetchData';
 
 type LoginUser = {
     login: boolean;

@@ -1,70 +1,48 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-import { ApplicationChoice } from '@/models/Application';
+import { Product, ProductPlan } from '@/models/Product';
 
 import { NInput, NInputGroup, NButton, NPopover, NDropdown, NIcon } from 'naive-ui';
 import { Search48Regular } from '@vicons/fluent';
 
 // const chosenApplication = ref<ApplicationChoice | null>(null);
-const chosenApplication = defineModel<ApplicationChoice | null>();
+const chosenProduct = defineModel<Product | null>('product');
+const chosenPlan = defineModel<ProductPlan | null>('plan');
 
-const applicationTags = ref([
+const productArea = ref([
     { label: "全部", key: "all" },
-    { label: "建站", key: "web" },
-    { label: "操作系统", key: "os" },
-    { label: "实用工具", key: "tool" },
+    { label: "成都", key: "cd" },
+    { label: "香港", key: "hk" },
 ]);
-const chosenApplicationTag = ref("all");
+const chosenProductArea = ref("all");
 
-function chooseApplication(application: ApplicationChoice) {
-    chosenApplication.value = application;
+function chooseProduct(product: Product) {
+    chosenProduct.value = product;
 }
 
-const applicationList = ref<ApplicationChoice[]>([{
-    name: 'HUSTOJ',
-    description: 'HUSTOJ是一个开源的在线评测系统，支持多种编程语言，包括C/C++、Java、Python等。',
-    icon: '/imgs/hustoj.png',
-    tags: 'web',
-    chosenVersion: '20250220',
-    versions: [
-        {
-            label: '20250220',
-            key: '20250220'
-        }
-    ]
-}, {
-    name: 'Ubuntu',
-    description: 'Ubuntu是一个基于Debian的开源Linux操作系统。它是一个完全免费的操作系统，包括支持和更新。',
-    icon: '/imgs/ubuntu.svg',
-    tags: 'os',
-    chosenVersion: '22.04 LTS',
-    versions: [
-        {
-            label: '22.04 LTS',
-            key: '22.04 LTS'
-        },
-        {
-            label: '20.04 LTS',
-            key: '20.04 LTS'
-        }
-    ]
-}, {
-    name: "Debian",
-    description: "Debian是一个自由操作系统，它的内核和大多数基本系统软件都是由自由软件组成的。",
-    icon: '/imgs/debian.svg',
-    tags: 'os',
-    chosenVersion: 'bookworm',
-    versions: [
-        {
-            label: 'bookworm (12)',
-            key: 'bookworm'
-        },
-        {
-            label: 'bullseye (11)',
-            key: 'bullseye'
-        }
-    ]
+function chooseProductPlan(plan: ProductPlan) {
+    chosenPlan.value = plan;
+}
+
+const productList = ref<Product[]>([{
+    id: 1,
+    serverIp: "12.23.34.45",
+    area: "成都",
+    name: "成都1区",
+    description: "成都1区",
+    plans: [{
+        id: 1,
+        name: "",
+        cpu: 10,
+        memory: 20,
+        swap: number,
+        disk: number,
+        sqlSize: number,
+        ports: number,
+        bandwidth: number,
+        price: [66,77,88,99],
+    }],
 }]);
 
 function handleSelectApplication(application: any, key: string | number) {
@@ -72,10 +50,10 @@ function handleSelectApplication(application: any, key: string | number) {
 }
 
 const applicationListFiltered = computed(() => {
-    if (chosenApplicationTag.value === 'all') {
+    if (chosenProductArea.value === 'all') {
         return applicationList.value;
     }
-    return applicationList.value.filter(application => application.tags.includes(chosenApplicationTag.value));
+    return applicationList.value.filter((application: ApplicationChoice) => application.tags.includes(chosenProductArea.value));
 });
 </script>
 
@@ -83,35 +61,33 @@ const applicationListFiltered = computed(() => {
     <div class="ax-card ax-application-filter">
         <div class="ax-filter-box">
             <div class="ax-filter-box__label">
-                应用搜索
+                产品地域
             </div>
             <div class="ax-filter-box__input">
-                <n-input-group>
-                    <n-input :style="{ width: '50%' }" />
-                    <n-button type="primary" ghost>
-                        <n-icon>
-                            <Search48Regular />
-                        </n-icon>
-                    </n-button>
-                </n-input-group>
+                <div class="ax-tag-box">
+                    <span class="ax-tag" v-for="area in productArea" :key="area.key"
+                        :class="{ 'ax-tag--selected': chosenProductArea === area.key }"
+                        @click="chosenProductArea = area.key">{{
+                            area.label }}</span>
+                </div>
             </div>
         </div>
         <div class="ax-filter-box">
             <div class="ax-filter-box__label">
-                应用类型
+                产品选择
             </div>
             <div class="ax-filter-box__input">
                 <div class="ax-tag-box">
-                    <span class="ax-tag" v-for="applicationTag in applicationTags" :key="applicationTag.key"
-                        :class="{ 'ax-tag--selected': chosenApplicationTag === applicationTag.key }"
-                        @click="chosenApplicationTag = applicationTag.key">{{
-                            applicationTag.label }}</span>
+                    <span class="ax-tag" v-for="area in productArea" :key="area.key"
+                        :class="{ 'ax-tag--selected': chosenProductArea === area.key }"
+                        @click="chosenProductArea = area.key">{{
+                            area.label }}</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="ax-application-list">
-        <div class="ax-application-item" v-for="application in applicationList" :key="application.name"
+        <div class="ax-application-item" v-for="application in applicationListFiltered" :key="application.name"
             :class="{ 'ax-application-item--selected': chosenApplication === application }"
             @click="chooseApplication(application)">
             <n-popover style="max-width: 200px" trigger="hover">

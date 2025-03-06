@@ -1,5 +1,6 @@
 {
-  "name": "axcloud-fe",
+  "name": "client",
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -8,22 +9,26 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vicons/fluent": "^0.12.0",
-    "axios": "^1.7.2",
-    "nprogress": "^0.2.0",
-    "pinia": "^2.1.7",
-    "vue": "^3.4.29",
-    "vue-i18n": "^11.1.1",
+    "@primeuix/themes": "^1.0.0",
+    "axios": "^1.8.1",
+    "pinia": "^3.0.1",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.3.1",
+    "tailwindcss-primeui": "^0.5.1",
+    "vue": "^3.5.13",
     "vue-router": "4"
   },
   "devDependencies": {
-    "@types/node": "^20.14.9",
-    "@types/nprogress": "^0.2.3",
-    "@vitejs/plugin-vue": "^5.0.5",
-    "naive-ui": "^2.41.0",
-    "typescript": "^5.2.2",
-    "vfonts": "^0.0.3",
-    "vite": "^6.1.0",
-    "vue-tsc": "^2.0.21"
+    "@primevue/auto-import-resolver": "^4.3.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "tailwindcss": "3",
+    "typescript": "~5.7.2",
+    "unplugin-vue-components": "^28.4.1",
+    "unplugin-vue-router": "^0.11.2",
+    "vite": "^6.2.0",
+    "vue-tsc": "^2.2.4"
   }
 }

@@ -4,6 +4,7 @@ import { useSiteConfigStore } from '@/stores/siteConfig';
 import { useNavbarConfigStore } from '@/stores/navbarConfig';
 
 import ChooseApplication from '@/views/products/ChooseApplication.vue';
+import ChooseProduct from '@/views/products/ChooseProduct.vue';
 
 import { ApplicationChoice } from '@/types/application';
 
@@ -68,6 +69,9 @@ onMounted(() => {
         <div v-if="current === 1">
             <ChooseApplication v-model="chosenApplication" />
         </div>
+        <div v-else-if="current === 2">
+            <ChooseProduct />
+        </div>
     </div>
     <div class="ax-height-4"></div>
     <div class="ax-order-overview">
@@ -94,9 +98,10 @@ onMounted(() => {
                     <div class="ax-order-overview-item__value ax-order-overview-price">￥{{ allPrices }}</div>
                 </div>
                 <div>
-                    <button class="ax-order-overview-button ax-order-overview-button-outline"
-                        @click="prevStep" v-if="currentRef && currentRef > 1">上一步</button>
-                    <button class="ax-order-overview-button" @click="nextStep" v-if="currentRef && currentRef < maxSteps">下一步</button>
+                    <button class="ax-order-overview-button ax-order-overview-button-outline" @click="prevStep"
+                        v-if="currentRef && currentRef > 1">上一步</button>
+                    <button class="ax-order-overview-button" @click="nextStep"
+                        v-if="currentRef && currentRef < maxSteps">下一步</button>
                     <button class="ax-order-overview-button" @click="addToCart" v-else>加入购物车</button>
                 </div>
             </div>

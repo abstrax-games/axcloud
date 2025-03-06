@@ -1,31 +1,35 @@
-import { createApp } from 'vue';
-import { createPinia } from "pinia";
+import { createApp } from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import { routes } from 'vue-router/auto-routes'
 
-// 字体
-// 通用字体
-import 'vfonts/Lato.css'
-// 等宽字体
-import 'vfonts/FiraCode.css'
+import PrimeVue from 'primevue/config'
+import 'primeicons/primeicons.css'
+import Axlight from './themes/axlight'
+import ConfirmationService from 'primevue/confirmationservice'
+import ToastService from 'primevue/toastservice'
 
-// css文件
-import './style.css';
+import { createPinia } from 'pinia'
 
-import App from './App.vue';
-import route from './router';
+import './style.css'
+import App from './App.vue'
 
-import { useSiteConfigStore } from "./stores/siteConfig";
+const router = createRouter({
+    history: createWebHistory(),
+    routes,
+})
 
-const app = createApp(App);
-app.use(route);
+const app = createApp(App)
 
-const pinia = createPinia();
-app.use(pinia);
+const pinia = createPinia()
+app.use(pinia)
 
-const siteConfig = useSiteConfigStore();
+app.use(router)
 
-async function main() {
-    //await siteConfig.fetchSiteConfig();
-    app.mount('#app');
-}
-
-main();
+app.use(PrimeVue, {
+    theme: {
+        preset: Axlight,
+    }
+})
+app.use(ConfirmationService)
+app.use(ToastService)
+app.mount('#app')
